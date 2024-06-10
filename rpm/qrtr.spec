@@ -27,13 +27,16 @@ cp %{SOURCE1} include/linux
 mkdir -p %{buildroot}%{_includedir}/linux
 cp %{SOURCE1} %{buildroot}%{_includedir}/linux
 %meson_install
+mkdir -p %{buildroot}%{_unitdir}/multi-user.target.wants
+ln -s ../qrtr-ns.service %{buildroot}%{_unitdir}/multi-user.target.wants/qrtr-ns.service
 
 %files
 %defattr(-,root,root,-)
 %license LICENSE
 %{_bindir}/qrtr-*
 %{_libdir}/libqrtr.so.*
-%{_libdir}/systemd/system/*.service
+%{_unitdir}/qrtr-ns.service
+%{_unitdir}/multi-user.target.wants/qrtr-ns.service
 
 %package kernel-headers
 Summary:    Kernel headers for QRTR
